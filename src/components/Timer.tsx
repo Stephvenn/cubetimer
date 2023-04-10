@@ -1,26 +1,42 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useRef} from 'react';
 
 export default function Timer() {
 
     const [time, setTime] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
+    const startTimeRef: any = useRef();
+    const requestRef: any = useRef();
+    const milliseconds: number = time % 1000;
+    const seconds: number = Math.floor((time % 60000) / 1000);
+    const minutes: number = Math.floor(time/60000);
 
-    useEffect(() => {
-        let intervalId: any;
-        if (isRunning) {
-          // setting time from 0 to 1 every 10 milisecond using javascript setInterval method
-          intervalId = setInterval(() => setTime(time + 1), 10);
-        }
-        return () => clearInterval(intervalId);
-      }, [isRunning, time]);
-
-      function startTimer() {
-            setIsRunning((prev) => !prev);
+    function startTimer() {
+      setIsRunning((prev) => !prev);
+      if (isRunning){
+        startTimeRef.current = new Date().getTime();
+        requestRef.current = requestAnimationFrame(updateElapsedTime);
+      } else{
+        cancelAnimationFrame(requestRef.current);
       }
+    }
+    const updateElapsedTime = (timestamp: any) => {
+      if (!isRunning) {
+        return;
+      }
+      const currentTime = new Date().getTime();
+      const elapsed = currentTime - startTimeRef.current;
+      setTime(elapsed);
+      requestRef.current = requestAnimationFrame(updateElapsedTime);
+    };
+
+    const formatElapsedTime = (elapsedTime: number) => {
+      const minutes = Math.floor(elapsedTime / 60000);
+      const seconds = Math.floor((elapsedTime % 60000) / 1000);
+      const milliseconds = elapsedTime % 1000;
+      return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}:${milliseconds.toString().padStart(3, '0')}`;
+    };
 
     return (
-        <h2 className='timer' onClick={startTimer}>
-            {time}
-        </h2>
+        <p className='timer' onClick={startTimer}>{formatElapsedTime(time)}</p>
     );
 }
