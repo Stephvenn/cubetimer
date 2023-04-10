@@ -6,9 +6,6 @@ export default function Timer() {
     const [isRunning, setIsRunning] = useState(false);
     const startTimeRef: any = useRef();
     const requestRef: any = useRef();
-    const milliseconds: number = time % 1000;
-    const seconds: number = Math.floor((time % 60000) / 1000);
-    const minutes: number = Math.floor(time/60000);
 
     function startTimer() {
       setIsRunning((prev) => !prev);
