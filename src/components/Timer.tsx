@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 
 export default function Timer() {
 
@@ -7,15 +7,6 @@ export default function Timer() {
     const startTimeRef: any = useRef();
     const requestRef: any = useRef();
 
-    function startTimer() {
-      setIsRunning((prev) => !prev);
-      if (isRunning){
-        startTimeRef.current = new Date().getTime();
-        requestRef.current = requestAnimationFrame(updateElapsedTime);
-      } else{
-        cancelAnimationFrame(requestRef.current);
-      }
-    }
     const updateElapsedTime = (timestamp: any) => {
       if (!isRunning) {
         return;
@@ -33,7 +24,32 @@ export default function Timer() {
       return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}:${milliseconds.toString().padStart(3, '0')}`;
     };
 
+    useEffect(() => {
+      function handleKeyPress(event: KeyboardEvent): void {
+        if (event.code === 'Space') {
+          console.log('Spacebar pressed');
+          setIsRunning(prev => !prev);
+        }
+      }
+      window.addEventListener('keydown', handleKeyPress);
+      
+      // clean up
+      return () => {
+        window.removeEventListener('keydown', handleKeyPress);
+      };
+    }, []);
+
+    useEffect(() => {
+      if (isRunning){
+        startTimeRef.current = new Date().getTime();
+        requestRef.current = requestAnimationFrame(updateElapsedTime);
+      } else{
+        cancelAnimationFrame(requestRef.current);
+      }
+    }, [isRunning]);
+
+
     return (
-        <p className='timer' onClick={startTimer}>{formatElapsedTime(time)}</p>
+        <p className='timer'>{formatElapsedTime(time)}</p>
     );
 }
