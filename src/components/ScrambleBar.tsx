@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 
-export default function ScrambleBar() {
+export default function ScrambleBar(props: {active: boolean}) {
 
     const [scramble, setScramble] = useState('');
+    const {active} = props;
 
-    useEffect(makeNewScramble, []);
+    useEffect(makeNewScramble, [active]);
 
     function makeNewScramble() {
         const options = ["F", "R", "U", "B", "L", "D", "F2", "R2", "U2", "B2", "L2", "D2", "F'", "R'", "U'", "B'", "L'", "D'"];

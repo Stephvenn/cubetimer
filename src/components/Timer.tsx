@@ -1,13 +1,13 @@
-import React, { useState, useRef, useEffect } from "react";
+import {useState, useRef, useEffect, SetStateAction } from "react";
 
-export default function Timer() {
+export default function Timer(props: {active: boolean, setActive: React.Dispatch<SetStateAction<boolean>>, setTimesArray: React.Dispatch<React.SetStateAction<string[]>>}) {
 	const [time, setTime] = useState(0);
-	const [isRunning, setIsRunning] = useState(false);
+    const {active, setActive, setTimesArray} = props;
 	const startTimeRef: any = useRef();
 	const requestRef: any = useRef();
 
 	const updateElapsedTime = (timestamp: any) => {
-		if (!isRunning) {
+		if (!active) {
 			return;
 		}
 		const currentTime = new Date().getTime();
@@ -25,13 +25,14 @@ export default function Timer() {
 			.padStart(2, "0")}:${milliseconds.toString().padStart(3, "0")}`;
 	};
 
+    function handleKeyPress(event: KeyboardEvent): void {
+        if (event.code === "Space") {
+            console.log("Spacebar pressed");
+            setActive((prev) => !prev);
+        }
+    }
+
 	useEffect(() => {
-		function handleKeyPress(event: KeyboardEvent): void {
-			if (event.code === "Space") {
-				console.log("Spacebar pressed");
-				setIsRunning((prev) => !prev);
-			}
-		}
 		window.addEventListener("keydown", handleKeyPress);
 
 		// clean up
@@ -40,14 +41,22 @@ export default function Timer() {
 		};
 	}, []);
 
+    useEffect(() => {
+        setTimesArray(prev => [...prev, formatElapsedTime(time)]);
+        console.log(formattedTime);
+
+    }, [active])
+
 	useEffect(() => {
-		if (isRunning) {
+		if (active) {
 			startTimeRef.current = new Date().getTime();
 			requestRef.current = requestAnimationFrame(updateElapsedTime);
 		} else {
 			cancelAnimationFrame(requestRef.current);
 		}
-	}, [isRunning]);
+	}, [active]);
+    
+    let formattedTime = formatElapsedTime(time);
 
-	return <p className="timer">{formatElapsedTime(time)}</p>;
+	return <p className="timer">{formattedTime}</p>;
 }
