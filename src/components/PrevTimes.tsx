@@ -1,10 +1,38 @@
-export default function PrevTimes(props: {timesArray: string[]}) {
+import {SetStateAction} from 'react';
 
-    const {timesArray} = props;
-    const allTimes = timesArray.map(time => <p>{time}</p>);
+export default function PrevTimes(props: {timesArray: string[], setTimesArray: React.Dispatch<SetStateAction<string[]>>}) {
+
+    const {timesArray, setTimesArray} = props;
+    
+    function deleteTime(index: number)  {
+        if (index !== -1){
+            const newArray = [...timesArray];
+            newArray.splice(index, 1);
+            setTimesArray(newArray);
+        }
+    }
+
+    function deleteAllTimes() {
+        setTimesArray([]);
+    }
+    
+    const allTimes: JSX.Element[] = timesArray.map(
+        (time, index) => <p key={index}
+        className='prevtimes' 
+        onClick={() => {
+            if (window.confirm(`Delete ${timesArray[index]}?`))
+                deleteTime(index);
+        }}>{time}</p>);
+    
 
     return (
-        <p>{allTimes}</p>
+        <div className='prevtimes-container'>
+            <button className='delete-button' onClick={() => {
+                if (window.confirm(`Delete all times?`)){
+                    deleteAllTimes();
+                }}}>Delete All Times</button>
+            {allTimes}
+        </div>
     );
 
 }

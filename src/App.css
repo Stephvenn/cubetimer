@@ -44,11 +44,11 @@ body {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
   
-  .scramble-button:focus {
+.scramble-button:focus {
     outline: none;
   }
   
-  .scramble-button:active {
+.scramble-button:active {
     box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
   }
 
@@ -59,7 +59,47 @@ body {
 }
 
 .timer {
-  font-size: 120px;
-  min-width: 600px;
+  font-size: 200px;
+  min-width: 1000px;
+  margin-right: 11%;
+  margin-top: 15%;
+  margin-bottom: auto ;
 }
 
+.prevtimes-container{
+    margin: 10px;
+    margin-bottom: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.delete-button {
+    background-color: #468189;
+    margin: 5px;
+    border: none;
+    padding: 5px;
+    font-size: 16px;
+    color: #FFF;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+    
+.delete-button:focus {
+    outline: none;
+}
+
+.delete-button:active {
+    box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
+}
+
+.prevtimes {
+    font-size: 24px;
+}
+
+.prevtimes:hover {
+    border: 1px solid #031926;
+
+}

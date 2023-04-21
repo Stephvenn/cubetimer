@@ -5,7 +5,10 @@ export default function ScrambleBar(props: {active: boolean}) {
     const [scramble, setScramble] = useState('');
     const {active} = props;
 
-    useEffect(makeNewScramble, [active]);
+    useEffect(() => {
+        if (!active)
+        makeNewScramble();
+    }, [active]);
 
     function makeNewScramble() {
         const options = ["F", "R", "U", "B", "L", "D", "F2", "R2", "U2", "B2", "L2", "D2", "F'", "R'", "U'", "B'", "L'", "D'"];

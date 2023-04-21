@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import './App.css';
 import Timer from './components/Timer';
 import ScrambleBar from './components/ScrambleBar';
@@ -11,8 +11,8 @@ function App() {
   return (
     <div className="App">
       <ScrambleBar active={active}/>
-      <PrevTimes timesArray={timesArray}/>
       <div className='timer-container'>
+        <PrevTimes timesArray={timesArray} setTimesArray={setTimesArray}/>
         <Timer active={active} setActive={setActive} setTimesArray={setTimesArray}/>
       </div>
     </div>
