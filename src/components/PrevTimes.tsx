@@ -27,11 +27,15 @@ export default function PrevTimes(props: {timesArray: string[], setTimesArray: R
 
     return (
         <div className='prevtimes-container'>
-            <button className='delete-button' onClick={() => {
+            <button className='delete-button' 
+            tabIndex={-1}
+            onClick={() => {
                 if (window.confirm(`Delete all times?`)){
                     deleteAllTimes();
                 }}}>Delete All Times</button>
-            {allTimes}
+            <div className='alltimes-container'>
+                {allTimes}
+            </div>
         </div>
     );
 
