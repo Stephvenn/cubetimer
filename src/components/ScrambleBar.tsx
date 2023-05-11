@@ -39,7 +39,10 @@ export default function ScrambleBar(props: {active: boolean}) {
             <h2 className='scramble-text'>
                 {scramble}
             </h2>
-            <button className='scramble-button' onClick={makeNewScramble}>New Scramble</button>
+            <button className='scramble-button' 
+            onClick={makeNewScramble}
+            tabIndex={-1}
+            >New Scramble</button>
         </div>
     );
 }
