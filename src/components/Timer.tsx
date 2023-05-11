@@ -59,6 +59,8 @@ export default function Timer(props: {
             setTimesArray(prev => [...prev, formattedTime]);
             console.log(formattedTime);
         }
-    }, [active, time, setTimesArray]);
+    }, [active, setTimesArray]);
+
+
 	return <p className="timer">{formatElapsedTime(time)}</p>;
 }

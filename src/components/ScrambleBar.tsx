@@ -35,7 +35,7 @@ export default function ScrambleBar(props: {active: boolean}) {
 
     return (
         <div className='scramble-bar'>
-            <h1 className='title'>CubeTimer</h1>
+            <h1 className='title'>Timer</h1>
             <h2 className='scramble-text'>
                 {scramble}
             </h2>
