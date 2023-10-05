@@ -3,10 +3,11 @@ import {useState, useRef, useEffect, SetStateAction} from "react";
 export default function Timer(props: {
     active: boolean, 
     setActive: React.Dispatch<SetStateAction<boolean>>, 
-    setTimesArray: React.Dispatch<React.SetStateAction<string[]>>}) {
+    setTimesArray: React.Dispatch<React.SetStateAction<{time: string, scramble: string}[]>>,
+    curScramble: string}) {
 
 	const [time, setTime] = useState(0);
-    const {active, setActive, setTimesArray} = props;
+    const {active, setActive, setTimesArray, curScramble} = props;
 	const startTimeRef: any = useRef();
 	const requestRef: any = useRef();
 
@@ -56,7 +57,7 @@ export default function Timer(props: {
     useEffect(() => {
         if (!active && time !== 0){
             const formattedTime = formatElapsedTime(time);
-            setTimesArray(prev => [...prev, formattedTime]);
+            setTimesArray(prev => [...prev, {time: formattedTime, scramble: curScramble}]);
             console.log(formattedTime);
         }
     }, [active, setTimesArray]);

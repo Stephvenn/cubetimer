@@ -1,9 +1,11 @@
 import {useEffect, useState} from 'react';
 
-export default function ScrambleBar(props: {active: boolean}) {
+export default function ScrambleBar(props: {
+    active: boolean, 
+    curScramble: string, 
+    setCurScramble: React.Dispatch<React.SetStateAction<string>>}) {
 
-    const [scramble, setScramble] = useState('');
-    const {active} = props;
+    const {active, curScramble, setCurScramble} = props;
 
     useEffect(() => {
         if (!active)
@@ -25,7 +27,7 @@ export default function ScrambleBar(props: {active: boolean}) {
             }
             
         }
-        setScramble(scramble.join(' '));
+        setCurScramble(scramble.join(' '));
     }
 
     function getRandomInt(max: number) {
@@ -34,15 +36,21 @@ export default function ScrambleBar(props: {active: boolean}) {
     
 
     return (
-        <div className='scramble-bar'>
-            <h1 className='title'>Timer</h1>
-            <h2 className='scramble-text'>
-                {scramble}
-            </h2>
-            <button className='scramble-button' 
-            onClick={makeNewScramble}
-            tabIndex={-1}
-            >New Scramble</button>
+        <div className='scramble-bar container-fluid mb-10'>
+            <div className="row">
+                <div className="col col-md-2 text-center">
+                    <h1 className='title my-4'>Timer</h1>
+                </div>
+                <div className="col col-md-8 text-center fs-3 my-4">
+                        {curScramble}
+                </div>
+                <div className="col col-md-2 text-center d-flex justify-content-center">
+                    <button className='btn btn-secondary my-2' 
+                    onClick={makeNewScramble}
+                    tabIndex={-1}
+                    >New Scramble</button>
+                </div>
+            </div>
         </div>
     );
 }

@@ -6,7 +6,8 @@ import PrevTimes from './components/PrevTimes';
 
 function App() {
     const [active, setActive] = useState<boolean>(false);
-    const [timesArray, setTimesArray] = useState<string[]>(JSON.parse(localStorage.getItem('timesArray')!) || []);
+    const [curScramble, setCurScramble] = useState<string>("");
+    const [timesArray, setTimesArray] = useState<{time: string, scramble: string}[]>(JSON.parse(localStorage.getItem('timesArray')!) || []);
 
     useEffect(() => {
         localStorage.setItem('timesArray', JSON.stringify(timesArray));
@@ -15,11 +16,17 @@ function App() {
 
   return (
     <div className="App">
-      <ScrambleBar active={active}/>
-      <div className='timer-container'>
-        <PrevTimes timesArray={timesArray} setTimesArray={setTimesArray}/>
-        <Timer active={active} setActive={setActive} setTimesArray={setTimesArray}/>
-      </div>
+        <ScrambleBar active={active} curScramble={curScramble} setCurScramble={setCurScramble}/>
+        <div className='container-fluid'>
+            <div className="row">
+                <div className="col-2">
+                    <PrevTimes timesArray={timesArray} setTimesArray={setTimesArray}/>
+                </div>
+                <div className="col-8">
+                    <Timer active={active} setActive={setActive} setTimesArray={setTimesArray} curScramble={curScramble}/>
+                </div>
+            </div>
+        </div>
     </div>
   );
 }

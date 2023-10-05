@@ -1,6 +1,6 @@
 import {SetStateAction} from 'react';
 
-export default function PrevTimes(props: {timesArray: string[], setTimesArray: React.Dispatch<SetStateAction<string[]>>}) {
+export default function PrevTimes(props: {timesArray: {time: string, scramble: string}[], setTimesArray: React.Dispatch<SetStateAction<{time: string, scramble: string}[]>>}) {
 
     const {timesArray, setTimesArray} = props;
     
@@ -17,17 +17,17 @@ export default function PrevTimes(props: {timesArray: string[], setTimesArray: R
     }
     
     const allTimes: JSX.Element[] = timesArray.map(
-        (time, index) => <p key={index}
-        className='prevtimes' 
+        (solve, index) => <p key={index}
+        className='fs-5 btn-light' 
         onClick={() => {
             if (window.confirm(`Delete ${timesArray[index]}?`))
                 deleteTime(index);
-        }}>{time}</p>);
+        }}>{solve.time}</p>);
     
 
     return (
         <div className='prevtimes-container'>
-            <button className='delete-button' 
+            <button className='btn btn-secondary' 
             tabIndex={-1}
             onClick={() => {
                 if (window.confirm(`Delete all times?`)){
