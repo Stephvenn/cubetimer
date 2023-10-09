@@ -12,11 +12,20 @@ export default function Timer(props: {
 	const requestRef: any = useRef();
 
     useEffect(() => {
-		window.addEventListener("keydown", handleKeyPress);
+		window.addEventListener("keydown", handleKeyPressDown);
 
 		// clean up
 		return () => {
-			window.removeEventListener("keydown", handleKeyPress);
+			window.removeEventListener("keydown", handleKeyPressDown);
+		};
+	}, []);
+
+    useEffect(() => {
+		window.addEventListener("keyup", handleKeyPressUp);
+
+		// clean up
+		return () => {
+			window.removeEventListener("keyup", handleKeyPressUp);
 		};
 	}, []);
 
@@ -39,10 +48,16 @@ export default function Timer(props: {
 			.padStart(2, "0")}:${milliseconds.toString().padStart(3, "0")}`;
 	};
 
-    const handleKeyPress = (event: KeyboardEvent): void => {
+    const handleKeyPressDown = (event: KeyboardEvent): void => {
         if (event.code === "Space") {
             setActive((prev) => !prev);
         } 
+    };
+
+    const handleKeyPressUp = (event: KeyboardEvent): void => {
+        // if (event.code === "Space") {
+        //     setActive((prev) => !prev);
+        // } 
     };
 
 	useEffect(() => {
@@ -58,10 +73,10 @@ export default function Timer(props: {
         if (!active && time !== 0){
             const formattedTime = formatElapsedTime(time);
             setTimesArray(prev => [...prev, {time: formattedTime, scramble: curScramble}]);
-            console.log(formattedTime);
+            // console.log(formattedTime);
         }
     }, [active, setTimesArray]);
 
 
-	return <p className="timer">{formatElapsedTime(time)}</p>;
+	return <p className="timer fs-1 text-center">{formatElapsedTime(time)}</p>;
 }

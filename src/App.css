@@ -12,3 +12,15 @@ body {
 .scramble-bar {
   background-color: #031926;
 }
+
+.timer {
+    font-size: 100px !important;
+    margin-top: 25%;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.prevtimes:hover {
+    border: 1px solid #031926;
+}

@@ -18,7 +18,7 @@ export default function PrevTimes(props: {timesArray: {time: string, scramble: s
     
     const allTimes: JSX.Element[] = timesArray.map(
         (solve, index) => <p key={index}
-        className='fs-5 btn-light' 
+        className='fs-5 text-center mb-1 prevtimes' 
         onClick={() => {
             if (window.confirm(`Delete ${timesArray[index]}?`))
                 deleteTime(index);
@@ -26,8 +26,8 @@ export default function PrevTimes(props: {timesArray: {time: string, scramble: s
     
 
     return (
-        <div className='prevtimes-container'>
-            <button className='btn btn-secondary' 
+        <div className='prevtimes-container text-center mt-4'>
+            <button className='btn btn-secondary mb-2' 
             tabIndex={-1}
             onClick={() => {
                 if (window.confirm(`Delete all times?`)){

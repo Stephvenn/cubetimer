@@ -22,7 +22,7 @@ function App() {
                 <div className="col-2">
                     <PrevTimes timesArray={timesArray} setTimesArray={setTimesArray}/>
                 </div>
-                <div className="col-8">
+                <div className="col-7">
                     <Timer active={active} setActive={setActive} setTimesArray={setTimesArray} curScramble={curScramble}/>
                 </div>
             </div>

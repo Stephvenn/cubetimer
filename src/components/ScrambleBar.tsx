@@ -45,7 +45,7 @@ export default function ScrambleBar(props: {
                         {curScramble}
                 </div>
                 <div className="col col-md-2 text-center d-flex justify-content-center">
-                    <button className='btn btn-secondary my-2' 
+                    <button className='btn btn-secondary my-4' 
                     onClick={makeNewScramble}
                     tabIndex={-1}
                     >New Scramble</button>
