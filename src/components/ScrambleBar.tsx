@@ -39,7 +39,7 @@ export default function ScrambleBar(props: {
         <div className='scramble-bar container-fluid mb-10'>
             <div className="row">
                 <div className="col col-md-2 text-center">
-                    <h1 className='title my-4'>Timer</h1>
+                    <h1 className='title my-4'>CubeTimer</h1>
                 </div>
                 <div className="col col-md-8 text-center fs-3 my-4">
                         {curScramble}

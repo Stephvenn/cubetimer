@@ -11,6 +11,11 @@
 # production
 /build
 
+# secret keys
+/backend/keys.js
+/backend/token.json
+/backend/credentials.json
+
 # misc
 .DS_Store
 .env.local

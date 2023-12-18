@@ -21,6 +21,10 @@ body {
     margin-right: auto;
 }
 
+.prevtimes {
+    border: 1px solid #9DBEBB;
+}
+
 .prevtimes:hover {
     border: 1px solid #031926;
 }
