@@ -5,6 +5,7 @@ const {authenticate} = require('@google-cloud/local-auth');
 const {google} = require('googleapis');
 const path = require('path');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 const app = express();
 
 const corsOptions = {
@@ -87,8 +88,10 @@ app.get('/logout', function (req, res) {
     return res.send('logged out');
 });
 
-app.get('/updatetimes', function (req, res) {
-    return res.send('updated');
+app.post('/updatetimes', bodyParser.json(), function (req, res) {
+    const data = req.body;
+    console.log(`Recieved JSON: ${data}`);
+    return res.json({message: 'JSON data recieved successfully'});
 });
 
 app.get('/', function (req, res) {

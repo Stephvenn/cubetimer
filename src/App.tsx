@@ -3,7 +3,6 @@ import './App.css';
 import Timer from './components/Timer';
 import ScrambleBar from './components/ScrambleBar';
 import PrevTimes from './components/PrevTimes';
-import { callbackify } from 'util';
 
 function App() {
     const [active, setActive] = useState<boolean>(false);
@@ -12,11 +11,33 @@ function App() {
 
     useEffect(() => {
         localStorage.setItem('timesArray', JSON.stringify(timesArray));
+        
+        callBackendData('updatetimes', timesArray)
     }, [timesArray]);
 
     async function callBackend(option: string): Promise<void> {
         try{
             const response = await fetch(`http://localhost:4000/${option}`);
+            if (!response.ok) {
+                throw new Error('network error');
+            }
+            const data = await response.text();
+            console.log(data);
+        } catch (error) {
+            console.error(`Error: ${error}`);
+        }
+    
+    }
+
+    async function callBackendData(option: string, jsonData: {time: string, scramble: string}[]): Promise<void> {
+        try{
+            const response = await fetch(`http://localhost:4000/${option}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(jsonData),
+            });
             if (!response.ok) {
                 throw new Error('network error');
             }
