@@ -15,6 +15,7 @@
 /backend/keys.js
 /backend/token.json
 /backend/credentials.json
+/backend/mdbpassword.js
 
 # misc
 .DS_Store
